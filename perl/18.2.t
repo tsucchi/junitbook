@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use Test::More;
-use Try::Tiny;
+use Test::Exception;
 
 sub divide {
     my ($x, $y) = @_;
@@ -17,12 +17,7 @@ subtest '通常の場合 (3/2 = 1)', sub {
 };
 
 subtest '0除算', sub {
-    try {
-        divide(3, 0);
-        fail('exception expected');
-    } catch {
-        like( $_, qr/^divide by zero\./ );
-    };
+    throws_ok { divide(3, 0) } qr/^divide by zero\./;
 };
 
 done_testing;
