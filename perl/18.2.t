@@ -11,13 +11,18 @@ sub divide {
     return int( $x / $y );
 }
 
-is( divide(3, 2), 1);
 
-try {
-    divide(3, 0);
-    fail('exception expected');
-} catch {
-    like( $_, qr/^divide by zero\./ );
+subtest '通常の場合 (3/2 = 1)', sub {
+    is( divide(3, 2), 1);
+};
+
+subtest '0除算', sub {
+    try {
+        divide(3, 0);
+        fail('exception expected');
+    } catch {
+        like( $_, qr/^divide by zero\./ );
+    };
 };
 
 done_testing;
