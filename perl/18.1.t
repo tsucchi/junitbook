@@ -9,10 +9,10 @@ sub camel2snake {
 
     return if !defined $str;
 
-    if( $str =~ qr/^([A-Z])/ ) { # 先頭が大文字
-        my $lc = lc($1);
-        $str =~ s/^(?:[A-Z])/$lc/;
-    }
+    # if( $str =~ qr/^([A-Z])/ ) { # 先頭が大文字
+    #     my $lc = lc($1);
+    #     $str =~ s/^(?:[A-Z])/$lc/;
+    # }
 
     while ( $str =~ qr/([A-Z])/ ) {
         my $lc = lc($1);
