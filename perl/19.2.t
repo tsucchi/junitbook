@@ -33,6 +33,13 @@ sub load {
     return @result;
 }
 
+sub employee_ok {
+    my ($employee, $first, $last, $email) = @_;
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+    is( $employee->first_name, $first, 'first name' );
+    is( $employee->last_name,  $last,  'last name' );
+    is( $employee->email,      $email, 'email' );
+}
 
 subtest 'load 読み込み', sub {
     my $temp = Path::Tiny->tempfile();
@@ -43,9 +50,8 @@ subtest 'load 読み込み', sub {
     $temp->spew(@data);
     my @result = load($temp);
     is( scalar(@result), scalar(@data) );
-    is( $result[0]->first_name, 'Suzuko' );
-    is( $result[0]->last_name,  'Mimori' );
-    is( $result[0]->email,      'mimori_suzuko@example.com');
+    employee_ok($result[0], 'Suzuko', 'Mimori', 'mimori_suzuko@example.com' );
+    employee_ok($result[1], 'Sora',   'Tokui',  'tokui_sorangley@example.com' );
 };
 
 done_testing;
